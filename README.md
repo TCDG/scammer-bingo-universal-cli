@@ -1,2 +1,2 @@
-# scammer-bingo-universal-cli
-Scammer Bingo written in DZMLang.
+# Scammer Bingo!
+Will be filled later.
