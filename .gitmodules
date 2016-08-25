@@ -1,0 +1,3 @@
+[submodule "dzm"]
+	path = dzm
+	url = git@github.com:zaklaus/DZMLang.git
