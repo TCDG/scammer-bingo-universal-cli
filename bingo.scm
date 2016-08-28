@@ -21,11 +21,17 @@
                      "\n\n"))
     (print-achievements apairs)
     (display "\nYour input: ")
-    (eval-key (read-char))
+    (eval-key (trim-string (read-string)))
     (driver-loop)))
 
 (define (eval-key x)
-  ((atable 'update!) (list x 'done) #t))
+  (if (not (null? ((atable 'lookup) (list (string->symbol x) 'done))))
+      (if (eq? ((atable 'lookup) (list (string->symbol x) 'done)) #f)
+          (begin
+            ((atable 'update!) (list (string->symbol x) 'done) #t)
+            (set! cur-score (inc cur-score)))
+          (display "You've already selected that!"))
+      (display "Not a valid option.")))
 
 (define (print-achievements l)
   (if (null? l) #t
@@ -40,4 +46,3 @@
                        ")\n"))
              (print-achievements (cdr l)))))
 (driver-loop)
-
