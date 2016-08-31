@@ -1,11 +1,12 @@
 CC=g++
 CCFLAGS=-g -std=gnu++11 -Wall -Wextra -Werror
 CCLINE=$(CCFLAGS) bingo.cpp -o bingo
+CCLIBS=-lm -lpthread
 all:
-	$(CC) $(CCLINE) -lreadline
+	$(CC) $(CCLINE) -lreadline $(CCLIBS)
 win:
-	$(CC) $(CCLINE)
+	$(CC) $(CCLINE) $(CCLIBS)
 clean:
-	rm bingo
+	rm dzm
 	rm dzm_log.txt
 

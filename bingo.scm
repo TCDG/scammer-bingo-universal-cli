@@ -21,7 +21,7 @@
                      "\n\n"))
     (print-achievements apairs)
     (display "\nYour input(W - Win): ")
-    (eval-key (read-char))
+    (eval-key (char-lowercase (read-char)))
     (if (= cur-score max-score) (winner) #f)
     (driver-loop)))
 
@@ -43,7 +43,7 @@
           (if (eq? ((atable 'lookup) (list (char->symbol x) 'done)) #f)
               (begin
                 ((atable 'update!) (list (char->symbol x) 'done) #t)
-                (set! cur-score (inc cur-score)))
+                (set! cur-score (+ cur-score ((atable 'lookup) (list (char->symbol x) 'score)))))
               (display "You've already selected that!"))
           (display "Not a valid option."))))
 
@@ -56,7 +56,7 @@
                      "\nStatus: " (compliment) "\n"
                      "!\nDo you want to start a new round? (y/n)"
                      ))
-    (if (or (eq? (read-char) #\y) (eq? (read-char) #\Y))
+    (if (eq? (char-lowercase (read-char)) #\y)
         (begin
           (load "achievements.scm")
           (set! cur-score 0)
@@ -65,14 +65,16 @@
 
 (define (print-achievements l)
   (if (null? l) #t
-      (begin (display (concat (cdar l)
-                              " ["
-                              (if ((atable 'lookup) (list (caar l) 'done))
-                                  "PASSED"
-                                  "PENDING")
-                              "] (Score "
-                              (number->string
-                               ((atable 'lookup) (list (caar l) 'score)))
-                              ")\n"))
+      (begin (display (concat
+                       " -: "
+                       (cdar l)
+                       " ["
+                       (if ((atable 'lookup) (list (caar l) 'done))
+                           "PASSED"
+                           "PENDING")
+                       "] (Score "
+                       (number->string
+                        ((atable 'lookup) (list (caar l) 'score)))
+                       ")\n"))
              (print-achievements (cdr l)))))
 (driver-loop)
