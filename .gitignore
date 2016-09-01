@@ -27,5 +27,15 @@
 *.exe
 *.out
 *.app
+/vs2015/win32/*.db
+/*.ctm
+/vs2015/win32/Debug/*.pdb
+Debug
 
-bingo
+dzm_log.txt
+
+test
+dzm_win32_v01-alpha.zip
+dzm
+dzm_log.ctm
+ctime
